@@ -7,7 +7,7 @@ import javax.persistence.Id
 @Entity
 class ExpenseBudget (
   @Id val id: UUID,
-  val refExpenseType: UUID,
+  val expenseType: ExpenseType,
   val total: Int,
   val remaining: Int
 ) { }
