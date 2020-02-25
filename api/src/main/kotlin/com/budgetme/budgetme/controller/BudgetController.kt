@@ -6,7 +6,6 @@ import com.budgetme.budgetme.model.ExpenseType
 import com.budgetme.budgetme.repository.ExpenseBudgetRepository
 import com.budgetme.budgetme.util.minus
 import org.springframework.web.bind.annotation.*
-import java.lang.Exception
 
 @RequestMapping("api/budget")
 @RestController
@@ -18,12 +17,19 @@ class BudgetController (val expenseBudgetRepository: ExpenseBudgetRepository) {
     return expenseBudgetRepository.save(expenseBudget - chargeRequest.cost)
   }
 
+  @GetMapping(path = ["listExpenseBudget"])
+  public fun listExpenseBudget(): List<ExpenseBudget> {
+    return expenseBudgetRepository.findAll();
+  }
+
+  @PostMapping(path = ["createExpenseBudget"])
+  public fun createExpenseBudget(@RequestBody expenseBudget: ExpenseBudget): ExpenseBudget {
+    println(expenseBudget)
+    return expenseBudgetRepository.save(expenseBudget);
+  }
+
   @GetMapping(path = ["getBudgetByExpenseType"])
   public fun getBudgetByExpenseType(@PathVariable("expenseType") expenseType: ExpenseType): ExpenseBudget {
-    return try {
-      expenseBudgetRepository.findByExpenseType(expenseType)
-    } catch (e: Exception) {
-      throw e;
-    }
+    return expenseBudgetRepository.findByExpenseType(expenseType)
   }
 }

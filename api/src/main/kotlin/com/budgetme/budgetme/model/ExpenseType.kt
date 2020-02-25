@@ -1,10 +1,7 @@
 package com.budgetme.budgetme.model
 
 enum class ExpenseType {
-  MONTHLY_RENT_COST,
-  MONTHLY_UTILITY_COST,
   MONTHLY_GROCERIES_COST,
   MONTHLY_SPENDING_MONEY,
-  MONTHLY_JULIENNE_ALLOWANCE,
   MONTHLY_GAS
 }
