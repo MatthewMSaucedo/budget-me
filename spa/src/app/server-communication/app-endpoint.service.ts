@@ -4,7 +4,7 @@ import { ChargeRequest, ExpenseBudget, CreateExpenseBudgetRequest } from './app.
 
 @Injectable({ providedIn: 'root' })
 export class AppEndpointService {
-  private _dbUrl = 'http://budgetme-env.jixtdvdf7f.us-east-1.elasticbeanstalk.com/api/budget/';
+  private _dbUrl = 'http://budgetme-env.jixtdvdf7f.us-east-1.elasticbeanstalk.com/api/budget';
 
   constructor(private http: HttpClient) { }
 
@@ -13,7 +13,7 @@ export class AppEndpointService {
   }
 
   public listExpenseBudget(): Promise<ExpenseBudget[]> {
-    return this.http.get<ExpenseBudget[]>(`${this._dbUrl}/charge`).toPromise();
+    return this.http.get<ExpenseBudget[]>(`${this._dbUrl}/listExpenseBudget`).toPromise();
   }
 
   public createExpenseBudget(createExpenseBudgetRequest: CreateExpenseBudgetRequest): Promise<ExpenseBudget> {
