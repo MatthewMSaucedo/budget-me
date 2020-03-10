@@ -11,7 +11,7 @@ class ExpenseBudget (
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Int?,
-  val expenseType: ExpenseType?,
+  val expenseType: String?,
   val total: Int?,
   val remaining: Int?
 ) { }

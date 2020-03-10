@@ -1,5 +1,5 @@
 package com.budgetme.budgetme.dto
 
-import com.budgetme.budgetme.model.ExpenseType
+import com.budgetme.budgetme.model.ExpenseBudget
 
-class ChargeRequest(val expenseType: ExpenseType, val cost: Int) { }
+class ChargeRequest(val expenseBudget: ExpenseBudget, val cost: Int) { }

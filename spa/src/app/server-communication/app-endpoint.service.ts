@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ChargeRequest, ExpenseBudget } from './app.endpoint.constants';
+import { ChargeRequest, ExpenseBudget, CreateExpenseBudgetRequest } from './app.endpoint.constants';
 
 @Injectable({ providedIn: 'root' })
 export class AppEndpointService {
-  private _dbUrl = 'http://localhost:8080/api/budget';
+  private _dbUrl = 'http://budgetme-env.jixtdvdf7f.us-east-1.elasticbeanstalk.com/api/budget/';
 
   constructor(private http: HttpClient) { }
 
@@ -14,5 +14,9 @@ export class AppEndpointService {
 
   public listExpenseBudget(): Promise<ExpenseBudget[]> {
     return this.http.get<ExpenseBudget[]>(`${this._dbUrl}/charge`).toPromise();
+  }
+
+  public createExpenseBudget(createExpenseBudgetRequest: CreateExpenseBudgetRequest): Promise<ExpenseBudget> {
+    return this.http.post<ExpenseBudget>(`${this._dbUrl}/createExpenseBudget`, createExpenseBudgetRequest).toPromise();
   }
 }
