@@ -3,29 +3,39 @@ import './Dashboard.css';
 import api from '../Api'
 
 const Dashboard = () => {
-    const [hasError, setErrors] = useState(false);
-    const [expensebudgets, setExpenseBudgets] = useState({});
+    const [expensebudgets, setExpenseBudgets] = useState([]);
 
-    async function listExpenseBudget() {
-        const res = await fetch(api.listExpenseBudget)
-        res.json()
-            .then(res => setExpenseBudgets(res))
-            .catch(error => setErrors(error));
+    function listExpenseBudget() {
+        return fetch(api.listExpenseBudget).then(res => {
+            if (!res.ok) {
+                throw new Error("API response was not ok");
+            }
+            //res.json().then(e => console.log(e));
+            return res.json().then(expensebudgets => expensebudgets);
+        })
+        .catch();
     }
 
     useEffect(() => {
-        listExpenseBudget();
+        listExpenseBudget()
+            .then(_expenseBudgets => setExpenseBudgets(_expenseBudgets));
     }, []);
 
     return (
-        <div className="Dashboard-header">
-            <span class="Dashboard-title">budget-me</span>
-            <div>
-                <span> {JSON.stringify(expensebudgets)} </span>
-                <hr />
-                <span>Has error: {JSON.stringify(hasError)} </span>
+        <>
+            <div className="Dashboard-header">
+                <span className="Dashboard-title">budget-me</span>
             </div>
-        </div>
+            <div>
+            {expensebudgets.map(expenseBudget => {
+                return (
+                <div key={expenseBudget.id}>
+                    <span>{expenseBudget.expenseType}</span>
+                </div>
+                );
+            })}
+            </div>
+        </>
     );
 }
 
