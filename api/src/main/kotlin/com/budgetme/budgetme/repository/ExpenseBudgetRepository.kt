@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface ExpenseBudgetRepository: JpaRepository<ExpenseBudget, UUID> { }
+interface ExpenseBudgetRepository: JpaRepository<ExpenseBudget, UUID> {
+    fun findByRefUserId(refUserId: Int): List<ExpenseBudget>
+}

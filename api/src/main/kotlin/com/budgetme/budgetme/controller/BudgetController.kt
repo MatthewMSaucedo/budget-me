@@ -11,19 +11,16 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class BudgetController (val expenseBudgetRepository: ExpenseBudgetRepository) {
 
-  @CrossOrigin(origins = ["*"])
   @PostMapping(path = ["charge"])
   public fun charge(@RequestBody chargeRequest: ChargeRequest): ExpenseBudget {
     return expenseBudgetRepository.save(chargeRequest.expenseBudget - chargeRequest.cost)
   }
 
-  @CrossOrigin(origins = ["*"])
   @GetMapping(path = ["listExpenseBudget"])
-  public fun listExpenseBudget(): List<ExpenseBudget> {
-    return expenseBudgetRepository.findAll();
+  public fun listExpenseBudgetByUser(@RequestBody refUserId: Int): List<ExpenseBudget> {
+    return expenseBudgetRepository.findByRefUserId(refUserId);
   }
 
-  @CrossOrigin(origins = ["*"])
   @PostMapping(path = ["createExpenseBudget"])
   public fun createExpenseBudget(@RequestBody expenseBudget: ExpenseBudget): ExpenseBudget {
     println(expenseBudget)
