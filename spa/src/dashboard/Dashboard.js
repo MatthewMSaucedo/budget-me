@@ -7,6 +7,8 @@ const Dashboard = () => {
   const [expensebudgets, setExpenseBudgets] = useState([]);
   const [chargeAmt, setChargeAmt] = useState(0);
 
+  /* API calls */
+
   function listExpenseBudget() {
     return fetch(api.listExpenseBudget).then(res => {
       if (!res.ok) {
@@ -23,6 +25,8 @@ const Dashboard = () => {
     });
   }
 
+  /* Event handling */
+
   useEffect(() => {
     listExpenseBudget().then(_expenseBudgets =>
       setExpenseBudgets(_expenseBudgets)
@@ -32,14 +36,15 @@ const Dashboard = () => {
   const handleSubmit = expense => async event => {
     event.preventDefault();
 
-    // TODO: API call to charge
     await charge(expense);
 
-    // Update expense budget
-    listExpenseBudget().then(_expenseBudgets =>
-      setExpenseBudgets(_expenseBudgets)
-    );
+    // Update expense budgets in UI
+    listExpenseBudget().then(_expenseBudgets => {
+      setExpenseBudgets(_expenseBudgets);
+    });
   };
+
+  /* Template */
 
   return (
     <>
